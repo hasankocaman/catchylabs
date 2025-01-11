@@ -1,117 +1,58 @@
 package stepdefinitions;
 
-
-
-
-
 import driver.DriverManager;
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
 
-/**
- * Tüm step definition sınıfları için temel sınıf.
- * Ortak özellikleri ve hook metodlarını içerir.
- */
+import java.time.Duration;
+
 public class BaseSteps {
-    protected WebDriver driver;
     protected final Logger logger = LogManager.getLogger(this.getClass());
+    protected final Hooks hooks = new Hooks();
+    protected final WebDriver driver = DriverManager.getDriver();
 
-    public BaseSteps() {
-        this.driver = DriverManager.getDriver();
-    }
-
-    @Before
-    public void setup(Scenario scenario) {
-        logger.info("Starting scenario: {}", scenario.getName());
-        driver = DriverManager.getDriver();
-    }
-
-    @After
-    public void tearDown(Scenario scenario) {
-        if (scenario.isFailed()) {
-            // Senaryo başarısız olduğunda ekran görüntüsü al
-            takeScreenshot(scenario);
-            logger.error("Scenario failed: {}", scenario.getName());
-        } else {
-            logger.info("Scenario passed: {}", scenario.getName());
-        }
-
-        // Driver'ı temizle
-        try {
-            DriverManager.quitDriver();
-        } catch (Exception e) {
-            logger.error("Error while quitting driver: {}", e.getMessage());
-        }
-    }
-
-    /**
-     * Ekran görüntüsü alır ve senaryoya ekler
-     * @param scenario Mevcut senaryo
-     */
-    protected void takeScreenshot(Scenario scenario) {
-        try {
-            final byte[] screenshot = ((TakesScreenshot) driver)
-                    .getScreenshotAs(OutputType.BYTES);
-            scenario.attach(screenshot, "image/png",
-                    "Screenshot-" + scenario.getName());
-            logger.info("Screenshot taken for failed scenario: {}",
-                    scenario.getName());
-        } catch (Exception e) {
-            logger.error("Could not take screenshot: {}", e.getMessage());
-        }
-    }
-
-    /**
-     * Sayfanın yüklenmesini bekler
-     * @param seconds Beklenecek süre (saniye)
-     */
     protected void waitForPageLoad(int seconds) {
         try {
-            Thread.sleep(seconds * 1000L);
-            logger.info("Waited {} seconds for page load", seconds);
-        } catch (InterruptedException e) {
-            logger.error("Wait interrupted: {}", e.getMessage());
-            Thread.currentThread().interrupt();
-        }
-    }
-
-    /**
-     * URL'e gider
-     * @param url Gidilecek URL
-     */
-    protected void navigateToUrl(String url) {
-        try {
-            driver.get(url);
-            logger.info("Navigated to URL: {}", url);
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(seconds));
+            wait.until(webDriver -> ((JavascriptExecutor) webDriver)
+                    .executeScript("return document.readyState").equals("complete"));
+            logger.info("Sayfa yüklenmesi tamamlandı");
         } catch (Exception e) {
-            logger.error("Could not navigate to URL: {}", url);
-            throw e;
+            logger.error("Sayfa yüklenirken hata oluştu: {}", e.getMessage());
         }
     }
 
-    /**
-     * Geçerli URL'i döndürür
-     * @return Geçerli URL
-     */
-    protected String getCurrentUrl() {
-        String currentUrl = driver.getCurrentUrl();
-        logger.info("Current URL: {}", currentUrl);
-        return currentUrl;
+    protected void navigateToUrl(String url) {
+        hooks.navigateToUrl(url);
     }
 
-    /**
-     * Sayfa başlığını döndürür
-     * @return Sayfa başlığı
-     */
+    protected String getCurrentUrl() {
+        if (driver != null) {
+            try {
+                return driver.getCurrentUrl();
+            } catch (Exception e) {
+                logger.error("Mevcut URL alınırken hata: {}", e.getMessage());
+                return null;
+            }
+        }
+        logger.error("Mevcut URL alınırken driver null");
+        return null;
+    }
+
     protected String getPageTitle() {
-        String title = driver.getTitle();
-        logger.info("Page title: {}", title);
-        return title;
+        if (driver != null) {
+            try {
+                return driver.getTitle();
+            } catch (Exception e) {
+                logger.error("Sayfa başlığı alınırken hata: {}", e.getMessage());
+                return null;
+            }
+        }
+        logger.error("Sayfa başlığı alınırken driver null");
+        return null;
     }
 }

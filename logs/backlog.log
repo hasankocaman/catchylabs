@@ -1,0 +1,1 @@
+[main] 2025-01-11 22:45:40.479 WARN  - Support to run JUnit tests using TestNG stands deprecated and will be removed in future versions. You can now use the JUnit5 TestNG engine to run both JUnit and TestNG tests. For more information refer to https://github.com/junit-team/testng-engine .
