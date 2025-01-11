@@ -16,6 +16,10 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import pages.LoginPage;
 
+import static org.junit.Assert.assertEquals;
+import static pages.LoginPage.generateInvalidPassword;
+import static pages.LoginPage.generateInvalidUsername;
+
 public class LoginSteps {
     private final WebDriver driver = DriverManager.getDriver();
     private final LoginPage loginPage = new LoginPage();
@@ -52,12 +56,15 @@ public class LoginSteps {
     @When("I click the login button")
     public void i_click_the_login_button() {
         logger.info("Clicking login button");
+        System.out.println("Clicking login button");
         loginPage.clickLoginButton();
+        System.out.println(" login button clicked");
     }
 
     @Then("I should be logged in successfully")
     public void i_should_be_logged_in_successfully() {
         logger.info("Verifying successful login");
+        System.out.println("Verifying successful login");
         Assert.assertTrue("Login was not successful",
                 loginPage.isLoginSuccessful());
     }
@@ -71,4 +78,26 @@ public class LoginSteps {
             logger.error("Wait interrupted", e);
         }
     }
+
+
+    @When("I enter invalid username and password")
+    public void i_enter_invalid_username_and_password() {
+        String invalidUsername = generateInvalidUsername();
+        System.out.println("invalidUsername = " + invalidUsername);
+        String invalidPassword = generateInvalidPassword();
+        System.out.println("invalidPassword = " + invalidPassword);
+
+        loginPage.performLogin(invalidUsername, invalidPassword);
+
+        System.out.println("Invalid Username: " + invalidUsername);
+        System.out.println("Invalid Password: " + invalidPassword);
+    }
+
+    @Then("I should see an error message {string}")
+    public void iShouldSeeAnErrorMessage(String expectedErrorMessage) {
+        System.out.println("simdi iShouldSeeAnErrorMessage metodundasin");
+        String actualErrorMessage = loginPage.getErrorMessage();
+        assertEquals("Error message does not match!", expectedErrorMessage, actualErrorMessage);
+    }
+
 }

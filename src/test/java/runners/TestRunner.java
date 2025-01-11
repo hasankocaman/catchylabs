@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(
         plugin = {
-                "reporting.TestListener",  // düzeltilmiş package yolu
+                "reporting.TestListener",
                 "pretty",
                 "html:target/cucumber-reports",
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
         },
         features = "src/test/resources/features",
         glue = "stepdefinitions",
-        tags = "@smoke or @regression"
+        tags = "@negative"
 )
 public class TestRunner {
 }

@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.Random;
+
 /**
  * Login sayfası için Page Object class'ı.
  * Sayfa elementlerini ve login işlemlerini yönetir.
@@ -56,7 +58,7 @@ public class LoginPage extends BasePage {
      * @param username kullanıcı adı
      * @param password şifre
      */
-    private void performLogin(String username, String password) {
+    public void performLogin(String username, String password) {
         try {
             logger.debug("Clearing and entering username");
             waitForElementVisible(usernameInput);
@@ -72,6 +74,9 @@ public class LoginPage extends BasePage {
             throw new RuntimeException("Failed to perform login", e);
         }
     }
+
+
+
 
     /**
      * Login butonuna tıklar
@@ -154,5 +159,29 @@ public class LoginPage extends BasePage {
             logger.warn("Login elements are not visible");
             return false;
         }
+    }
+
+
+    // Rastgele bir kullanıcı adı üretir
+    public static String generateInvalidUsername() {
+        return getRandomString(5); // "invalidUserXXXXX" formatında
+    }
+
+    // Rastgele bir şifre üretir
+    public static String generateInvalidPassword() {
+        return  getRandomString(5); // "invalidPassXXXXX" formatında
+    }
+
+    // Rastgele bir string üretir
+    private static String getRandomString(int length) {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder randomString = new StringBuilder();
+        Random random = new Random();
+
+        for (int i = 0; i < length; i++) {
+            randomString.append(characters.charAt(random.nextInt(characters.length())));
+        }
+
+        return randomString.toString();
     }
 }

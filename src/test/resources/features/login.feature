@@ -5,10 +5,17 @@ Feature: User Login Functionality
   I want to login to the application
   So that I can acces my account
 
+Background:
+  Given I am on the login page
 
   @smoke @regression
   Scenario: Successful login with valid credentials
-    Given I am on the login page
     When I enter username and password
     And I click the login button
     Then I should be logged in successfully
+
+@negative
+  Scenario: Unsuccessful login with invalid credentials
+    When I enter invalid username and password
+    And I click the login button
+    Then I should see an error message "Username or Password Invalid!"
