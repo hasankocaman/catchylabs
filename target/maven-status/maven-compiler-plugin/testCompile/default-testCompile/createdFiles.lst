@@ -1,0 +1,8 @@
+stepdefinitions\LoginSteps.class
+stepdefinitions\Hooks.class
+runners\TestRunner.class
+stepdefinitions\CreateAccountSteps.class
+stepdefinitions\TransferMoneySteps.class
+stepdefinitions\AddMoneySteps.class
+stepdefinitions\BaseSteps.class
+stepdefinitions\EditAccountSteps.class

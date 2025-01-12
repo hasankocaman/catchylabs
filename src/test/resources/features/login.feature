@@ -9,13 +9,13 @@ Background:
   Given I am on the login page
 
   @smoke @regression
-  Scenario: Successful login with valid credentials
+  Scenario: TC01 Successful login with valid credentials
     When I enter username and password
     And I click the login button
     Then I should be logged in successfully
 
 @negative
-  Scenario: Unsuccessful login with invalid credentials
+  Scenario: TC02  Unsuccessful login with invalid credentials
     When I enter invalid username and password
     And I click the login button
     Then I should see an error message "Username or Password Invalid!"

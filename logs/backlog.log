@@ -1,1 +1,4 @@
 [main] 2025-01-11 22:45:40.479 WARN  - Support to run JUnit tests using TestNG stands deprecated and will be removed in future versions. You can now use the JUnit5 TestNG engine to run both JUnit and TestNG tests. For more information refer to https://github.com/junit-team/testng-engine .
+[main] 2025-01-12 21:38:46.881 WARN  - New fonts found, font cache will be re-built
+[main] 2025-01-12 21:38:46.881 WARN  - Building on-disk font cache, this may take a while
+[main] 2025-01-12 21:38:47.803 WARN  - Finished building on-disk font cache, found 421 fonts

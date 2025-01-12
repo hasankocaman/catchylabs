@@ -7,7 +7,7 @@ Feature: Create Account
 
 
   @createAccount
-  Scenario: Successful account creation
+  Scenario: TC01 Successful account creation
     Given I am on the login page
     When I enter username and password
     And I click the login button

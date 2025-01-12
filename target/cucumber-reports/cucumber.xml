@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Cucumber" time="12.508" tests="1" skipped="0" failures="1" errors="0">
+<testcase classname="User Login Functionality" name="Unsuccessful login with invalid credentials" time="12.308">
+<failure type="java.lang.NullPointerException" message="Cannot invoke &quot;com.aventstack.extentreports.ExtentTest.log(com.aventstack.extentreports.Status, String)&quot; because &quot;this.extentTest&quot; is null">
+<![CDATA[java.lang.NullPointerException: Cannot invoke "com.aventstack.extentreports.ExtentTest.log(com.aventstack.extentreports.Status, String)" because "this.extentTest" is null
+	at stepdefinitions.Hooks.navigateToUrl(Hooks.java:144)
+	at stepdefinitions.LoginSteps.i_am_on_the_login_page(LoginSteps.java:23)
+	at ?.I am on the login page(file:///D:/D%20KLASORU/PROJELER/TestiniumCatchylabs/catchylabs/src/test/resources/features/login.feature:9)
+]]>
+</failure>
+<system-out><![CDATA[
+Given I am on the login page................................................failed
+When I enter invalid username and password..................................skipped
+And I click the login button................................................skipped
+Then I should see an error message "Username or Password Invalid!"..........skipped
+]]></system-out>
+</testcase>
+</testsuite>

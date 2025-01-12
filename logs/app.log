@@ -1,0 +1,30 @@
+2025-01-12 21:51:12.509 [main] INFO  reporting.ExtentReportManager - ExtentReports instance created with HTML report: test-output/HtmlReport/TestReport_20250112_215112.html
+2025-01-12 21:51:12.810 [main] INFO  reporting.TestListener - Test execution started
+2025-01-12 21:51:13.010 [main] INFO  reporting.TestListener - Starting scenario: Unsuccessful login with invalid credentials
+2025-01-12 21:51:13.076 [main] INFO  stepdefinitions.Hooks - [2025-01-12 21:51:13] Starting scenario: Unsuccessful login with invalid credentials
+2025-01-12 21:51:13.077 [main] INFO  reporting.ExtentReportManager - Created test in extent report: Unsuccessful login with invalid credentials
+2025-01-12 21:51:13.082 [main] WARN  config.Configuration - Could not find properties file in classpath: config/test.config.properties
+2025-01-12 21:51:13.084 [main] DEBUG config.Configuration - Loaded properties file from classpath: config.properties
+2025-01-12 21:51:13.084 [main] INFO  config.Configuration - Configuration loaded successfully for environment: test
+2025-01-12 21:51:13.086 [main] INFO  driver.DriverFactory - Creating WebDriver instance for browser: CHROME
+2025-01-12 21:51:13.086 [main] DEBUG driver.DriverFactory - Configuring Chrome options
+2025-01-12 21:51:13.091 [main] INFO  driver.DriverFactory - Creating Chrome WebDriver instance
+2025-01-12 21:51:14.939 [main] INFO  driver.DriverFactory - Browser configured successfully with timeouts - Implicit: 10s, PageLoad: 30s, Script: 20s
+2025-01-12 21:51:14.944 [main] INFO  reporting.TestListener - Starting step: I am on the login page
+2025-01-12 21:51:14.965 [main] INFO  stepdefinitions.LoginSteps - Navigating to login page
+2025-01-12 21:51:24.562 [main] INFO  stepdefinitions.Hooks - Navigated to URL: https://catchylabs-webclient.testinium.com/
+2025-01-12 21:51:24.563 [main] ERROR stepdefinitions.Hooks - Navigation failed to URL: https://catchylabs-webclient.testinium.com/
+2025-01-12 21:51:24.775 [main] INFO  reporting.TestListener - Screenshot captured successfully
+2025-01-12 21:51:24.776 [main] INFO  reporting.TestListener - Step finished: I am on the login page with status: Fail
+2025-01-12 21:51:24.778 [main] INFO  reporting.TestListener - Starting step: I enter invalid username and password
+2025-01-12 21:51:24.781 [main] INFO  reporting.TestListener - Step finished: I enter invalid username and password with status: Skip
+2025-01-12 21:51:24.782 [main] INFO  reporting.TestListener - Starting step: I click the login button
+2025-01-12 21:51:24.784 [main] INFO  reporting.TestListener - Step finished: I click the login button with status: Skip
+2025-01-12 21:51:24.784 [main] INFO  reporting.TestListener - Starting step: I should see an error message "Username or Password Invalid!"
+2025-01-12 21:51:24.785 [main] INFO  reporting.TestListener - Step finished: I should see an error message "Username or Password Invalid!" with status: Skip
+2025-01-12 21:51:24.927 [main] INFO  stepdefinitions.Hooks - Screenshot captured: Screenshot-Unsuccessful login with invalid credentials-20250112_215124
+2025-01-12 21:51:24.928 [main] ERROR stepdefinitions.Hooks - [2025-01-12 21:51:24] Scenario failed: Unsuccessful login with invalid credentials
+2025-01-12 21:51:24.930 [main] INFO  stepdefinitions.Hooks - Browser logs captured
+2025-01-12 21:51:25.311 [main] INFO  reporting.ExtentReportManager - Reports have been generated successfully
+2025-01-12 21:51:25.316 [main] INFO  reporting.TestListener - Finished scenario: Unsuccessful login with invalid credentials with status: FAILED
+2025-01-12 21:51:25.358 [main] INFO  reporting.TestListener - Test execution finished

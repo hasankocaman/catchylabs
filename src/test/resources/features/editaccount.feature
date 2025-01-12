@@ -1,7 +1,7 @@
 Feature:
   Edit Account
 
-  Scenario:
+  Scenario: TC01 Successful account edit
     Given I am on the login page
     When I enter username and password
     And I click the login button

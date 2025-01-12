@@ -1,7 +1,7 @@
 Feature:
   Transfer Money
 
-  Scenario:
+  Scenario: TC01 Transferring Money to receiver account
     Given I am on the login page
     When I enter username and password
     And I click the login button
