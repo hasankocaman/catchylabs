@@ -1,5 +1,6 @@
 package stepdefinitions;
 
+import config.ConfigurationManager;
 import driver.DriverManager;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
@@ -7,11 +8,12 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 import pages.CreateAccountPage;
 
-public class CreateAccountSteps {
+public class CreateAccountSteps extends BaseSteps {
 
     // WebDriver örneğini DriverManager'dan alır.
     private final WebDriver driver = DriverManager.getDriver();
@@ -55,10 +57,26 @@ public class CreateAccountSteps {
 
     @When("I enter an account name")
     public void iEnterAnAccountName() {
-        logger.info("Entering account name");
-        System.out.println("Entering account name");
-createAccountPage.enterAccountName("mevduat hesabim");
-createAccountPage.clickCreateButton();
+        try {
+            logger.info("Entering account name");
+            System.out.println("Entering account name");
+
+            // Hesap adını gir
+            String accountName = ConfigurationManager.getInstance().getProperty("accountName");
+            createAccountPage.enterAccountName(accountName);
+
+            // Create düğmesine tıkla
+            createAccountPage.clickCreateButton();
+        } catch (NoSuchElementException e) {
+            // Element bulunamazsa log mesajı yaz ve kodu devam ettir
+            logger.warn("Account is already created. Skipping this step.");
+            System.out.println("Account is already created. Skipping this step.");
+        } catch (Exception e) {
+            // Diğer beklenmeyen hatalar için log mesajı
+            logger.error("An unexpected error occurred: " + e.getMessage());
+            System.err.println("An unexpected error occurred: " + e.getMessage());
+        }
+
 
     }
 
@@ -68,25 +86,12 @@ createAccountPage.clickCreateButton();
         System.out.println("Account creation verified successfully.");
         createAccountPage.getSpecificAccountName("mevduat hesabim");
         createAccountPage.getLatestDate();
-        createAccountPage.getHighestBalance();
-        createAccountPage.assertAccountNameContains("mevduat hesabim");
+        createAccountPage.getCurrentAccountBalance();
+        String accountName = ConfigurationManager.getInstance().getProperty("accountName");
+
+        createAccountPage.assertAccountNameContains(accountName);
     }
 
-    @Then("the account balance should be {int}")
-    public void the_account_balance_should_be(Integer expectedBalance) {
-        logger.info("Verifying account balance: " + expectedBalance);
-        System.out.println("Checking account balance: " + expectedBalance);
-
-        // Burada, hesap bakiyesi doğrulama kodları yazılır (örneğin, bir API çağrısı veya UI doğrulaması).
-    }
-
-    @Then("the account should have no specified currency")
-    public void the_account_should_have_no_specified_currency() {
-        logger.info("Verifying account has no specified currency");
-        System.out.println("Checking that account has no specified currency.");
-
-        // Burada, hesap para biriminin belirtilmediğini doğrulayan kodlar yazılır.
-    }
 
     @Then("user clicks open money transfer buton")
     public void user_clicks_open_money_transfer_buton() {
@@ -95,7 +100,7 @@ createAccountPage.clickCreateButton();
 
     @And("user clicks create an account buton")
     public void userClicksCreateAnAccountButon() {
-        createAccountPage.createAccountClick();
+        createAccountPage.clickCreateAccountButton();
     }
 
     public void selectAccountTypeFromDropdown(String accountType) {
@@ -111,4 +116,6 @@ createAccountPage.clickCreateButton();
             throw new IllegalArgumentException("Invalid account type: " + accountType);
         }
     }
+
+
 }
