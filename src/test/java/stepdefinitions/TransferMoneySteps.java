@@ -57,4 +57,6 @@ public class TransferMoneySteps extends BaseSteps {
         createAccountPage.getCurrentAccountBalance();
         transferMoneyPage.verifyBalanceAfterTransaction("100");
     }
+
+
 }
