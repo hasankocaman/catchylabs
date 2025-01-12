@@ -29,8 +29,14 @@ public class AddMoneySteps extends BaseSteps {
     }
 
 
-    @And("I put datas to required fields and add amount {string} and click add buton")
-    public void iPutDatasToRequiredFieldsAndAddAmountAndClickAddButon(String amount) throws InterruptedException {
+//    @And("I put datas to required fields and add amount {string} and click add buton")
+//    public void iPutDatasToRequiredFieldsAndAddAmountAndClickAddButon(String amount) throws Exception {
+//
+//
+//    }
+
+    @And("I put datas to required fields and add amount {string}")
+    public void iPutDatasToRequiredFieldsAndAddAmount(String amount) throws InterruptedException {
         addMoneyPage.enterCardInformation(
                 "1234 1234 1234 1234",  // Kart numarası
                 "Hasan Kocaman",        // Kart sahibi
@@ -38,5 +44,14 @@ public class AddMoneySteps extends BaseSteps {
                 "110"                   // CVV
         );
         addMoneyPage.enterAmount(amount);
+        System.out.println("Amount entered: " + amount);
+        logger.info("Amount entered: " + amount);
     }
+
+    @And("click add buton")
+    public void clickAddButon() throws Exception {
+        addMoneyPage.clickAddButton();
+    }
+
+
 }
